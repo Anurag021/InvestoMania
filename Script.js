@@ -11,8 +11,22 @@ S_no: "1", Company_Name: "DEEPAKNITRATE", Category : "Chemical" , Average_Price:
 {S_no: "2", Company_Name: "DMART", Category : "Cosumer Retail", Average_Price:"4542.1",
  Current_Price:"4814.4",Lowest_Cut_Off:"4600", Highest_Cut_Off:"5000"},
 {S_no: "3",Company_Name: "HCLTECH", Category : "IT Services", Average_Price:"1229.73",
- Current_Price:"1229.73",Lowest_Cut_Off:"1100", Highest_Cut_Off:"1300"}] 
-
+ Current_Price:"1229.73",Lowest_Cut_Off:"1100", Highest_Cut_Off:"1300"},
+{S_no: "4",Company_Name: "LTI", Category : "IT Services", Average_Price:"6568.32",
+ Current_Price:"6670.05",Lowest_Cut_Off:"6000", Highest_Cut_Off:"7300"},
+{S_no: "5",Company_Name: "MPHASIS", Category : "IT Services", Average_Price:"3103.55",
+ Current_Price:"3187.6",Lowest_Cut_Off:"3000", Highest_Cut_Off:"3450"},
+{S_no: "6",Company_Name: "Test1", Category : "IT Services", Average_Price:"10",
+ Current_Price:"13",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"},
+ {S_no: "7",Company_Name: "Test2", Category : "IT Services", Average_Price:"10",
+ Current_Price:"22",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"},
+ {S_no: "8",Company_Name: "Test3", Category : "IT Services", Average_Price:"10",
+ Current_Price:"4",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"},
+ {S_no: "9",Company_Name: "Test4", Category : "IT Services", Average_Price:"10",
+ Current_Price:"15",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"},
+ {S_no: "8",Company_Name: "Test3", Category : "IT Services", Average_Price:"10",
+ Current_Price:"10",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"}
+] 
 
 
 function generateTable(){
@@ -52,23 +66,29 @@ function checkStockZone( stock){
     Minimum variation price is ${minVariationPrice}
     stock Lowest cutOFF is : ${stock.Lowest_Cut_Off}
     stock highest Cutoff is ${stock.Highest_Cut_Off}`);
-    if ( stock.Current_Price <= maxVariationPrice && stock.Current_Price>=minVariationPrice){
+    if ( Number(stock.Current_Price) <= Number(maxVariationPrice) && Number(stock.Current_Price)>=Number(minVariationPrice)){
         columnColor = "wheat"
+        console.log("Its Normal thing");
     }
-    else if( stock.Current_Price < minVariationPrice && stock.Current_Price > stock.Lowest_Cut_Off ){
+    else if( Number(stock.Current_Price) < Number(minVariationPrice) && Number(stock.Current_Price) > Number(stock.Lowest_Cut_Off)){
         columnColor = "orange"
+        console.log("Its on the little higher side");
     }
-    else if (stock.Current_Price > maxVariationPrice &&  stock.Current_Price < stock.Highest_Cut_Off){
+    else if (Number(stock.Current_Price) > Number(maxVariationPrice) &&  Number(stock.Current_Price) < Number(stock.Highest_Cut_Off)){
         columnColor = "rgb(81, 196, 235)"
+        console.log("can think buy it");
     }
-    else if ( stock.Current_Price < stock.Lowest_Cut_Off){
-        columnColor = "rgba(255, 100, 100, 0.952)"
-    }
-    else if ( stock.Current_Price > stock.Highest_Cut_Off){
+    else if ( Number(stock.Current_Price) < Number(stock.Lowest_Cut_Off)){
         columnColor = "rgb(81, 235, 81)"
+        console.log("this one is to buy green");
+    }
+    else if ( Number(stock.Current_Price) > Number(stock.Highest_Cut_Off)){
+        columnColor = "rgba(255, 100, 100, 0.952)"
+        console.log("this is to sell Red");
     }
     else { 
         columnColor = "cyan"
+        console.log("this is the default");
     }
     return columnColor
 
