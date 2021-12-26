@@ -10,7 +10,7 @@
 <body>
     <h1>Welcome To INVESTOMANIA</h1>
     <table class="table">
-        <tr>
+        <!-- <tr>
             <th>S.no</th>
             <th>Company Name</th>
             <th>Category</th>
@@ -18,8 +18,32 @@
             <th>Current Price</th>
             <th>Lowest Cut Off Price</th>
             <th>Maximum Cut Off Price</th>
-        </tr>
+        </tr> -->
     </table>
+
+    <form style="padding: 1rem;">
+        <h2>Adding New Stocks</h2>
+        <lable for = "sNo">S.No : </lable> <input type="text" id = "sNo" name="sNo"> <br>
+        <lable for = "companyName">Company Name : </lable> <input type="text" id = "companyName" name="companyName"> <br>
+        <lable for = "Category">Category : </lable> <input type="text" id = "Category" name="Category"> <br>
+        <lable for = "avgPrice">Avg. Price : </lable> <input type="text" id = "avgPrice" name="avgPrice"> <br>
+        <lable for = "currentPrice">Current Price : </lable> <input type="text" id = "currentPrice" name="currentPrice"> <br>
+        <lable for = "lowestCutOffPrice">Lowest Cut Off Price : </lable> <input type="text" id = "lowestCutOffPrice" name="lowestCutOffPrice"> <br>
+        <lable for = "maximumCutOffPrice">Maximum Cut Off Price : </lable> <input type="text" id = "maximumCutOffPrice" name="maximumCutOffPrice"> <br>
+        <p class="addvalidatioText"></p>
+    </form>
+    <button class="addMoreBtn" style="margin-left: 1rem;">AddMore</button>
+    
+    <div class="deleteItem">
+        <h2>Delete Stocks via S.no or Name</h2>
+        <lable for = "deleteSNo">S.no : </lable>
+        <input type="text" id="deleteSNo" name="deleteSNo">
+        <h2>OR</h2>
+        <lable for = "deleteName">Stock Name : </lable>
+        <input type="text" id="deleteName" name="deleteName">
+        <button class="deleteBtn">Delete</button>
+    </div>
+    
     <script src="Script.js"></script>
 </body>
 </html>

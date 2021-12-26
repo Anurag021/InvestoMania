@@ -1,10 +1,13 @@
 //Working-- next activity
-//1. add more stock prices 
-//2. check woking for each condition -- color code check 
-//3. need to add small window to add more stocks from website
-//4. need to add a small window to delete stocks based on S.no 
+//1.Add Live Stock updater from  5Paisa API.
+//3. Work on delete item Part--> (pending Work)
+
+//completed Tasks
+//2. Add window to add more stocks into website.
 
 
+const tableHeading = ["s.no","Company_Name","Category","Avg. Price",
+"Current Price","Lowest Cut Off Price","Maximum Cut Off Price"]
 const Stocks =[{
 S_no: "1", Company_Name: "DEEPAKNITRATE", Category : "Chemical" , Average_Price:"2247.75",
  Current_Price:"2324.95",Lowest_Cut_Off:"2150", Highest_Cut_Off:"2500"},
@@ -28,14 +31,81 @@ S_no: "1", Company_Name: "DEEPAKNITRATE", Category : "Chemical" , Average_Price:
  Current_Price:"10",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"}
 ] 
 
-
-function generateTable(){
-
+// Getting Elements from HTML
+var addMoreBtn = document.querySelector(".addMoreBtn")
 const table = document.querySelector(".table")
 
-//Generating Table Dynamically from object values
-Stocks.forEach((st)=>{
+var sNo = document.querySelector("#sNo");
+var companyName = document.querySelector("#companyName") 
+var Category = document.querySelector("#Category") 
+var avgPrice = document.querySelector("#avgPrice") 
+var currentPrice = document.querySelector("#currentPrice") 
+var lowestCutOffPrice = document.querySelector("#lowestCutOffPrice") 
+var maximumCutOffPrice = document.querySelector("#maximumCutOffPrice") 
+var addvalidatioText = document.querySelector(".addvalidatioText")
 
+var deleteSNo = document.querySelector("#deleteSNo")
+var deleteName = document.querySelector("#deleteName")
+var deleteBtn = document.querySelector(".deleteBtn")
+
+addMoreBtn.addEventListener("click",AddMore)
+console.log(deleteBtn);
+deleteBtn.addEventListener("click",DeleteStock)
+
+//For Adding More Items into the list
+function AddMore(){
+    console.log("------------------------------");
+    console.log("Added Button Clicked");
+        if (sNo.value!=""&&companyName.value !=""&& Category.value !=""&&
+        avgPrice.value !=""&& currentPrice.value !=""&& lowestCutOffPrice.value !=""&&
+        maximumCutOffPrice.value !="") {
+            Stocks.push(
+                {S_no: sNo.value,Company_Name: companyName.value, Category : Category.value,
+                Average_Price:avgPrice.value, Current_Price:currentPrice.value,
+                Lowest_Cut_Off:lowestCutOffPrice.value, Highest_Cut_Off:maximumCutOffPrice.value}
+            )
+                console.log(sNo.value);    
+            table.innerHTML = ""
+            generateTable()  
+            addvalidatioText.innerText = "Details Added Successfully"
+
+        }
+        else{
+            console.log("Added Else Block");
+            addvalidatioText.innerText = "Invalid Details"
+
+        }
+
+    
+}
+
+//Delete Stock from the List based on the Input values
+function DeleteStock(){
+    console.log("Delete Button Clicked");
+    Stocks.forEach((st)=>{
+        // if (st.S_no == deleteSNo) {
+            
+        // }
+        Stocks.po
+    })
+}
+
+
+//Generating Table Heading Dynamically
+function GenerateTableHeading(){
+    var headingTR = document.createElement("tr")
+   tableHeading.forEach((th)=>{
+       var headingTH = document.createElement("th");
+       headingTH.appendChild(document.createTextNode(th))
+       headingTR.appendChild(headingTH)
+   })
+    table.appendChild(headingTR)
+}
+
+//Generating Table Dynamically from Array values
+function generateTable(){
+GenerateTableHeading()
+Stocks.forEach((st)=>{
     const tr = document.createElement("tr")
 
     for (const key in st) {
@@ -52,6 +122,7 @@ Stocks.forEach((st)=>{
 
 })}
 
+// change color of the row based on stocks Value
 function checkStockZone( stock){
     var columnColor
     midPrice = (Number(stock.Highest_Cut_Off) + Number(stock.Lowest_Cut_Off))/2
@@ -61,11 +132,11 @@ function checkStockZone( stock){
     maxVariationPrice =  midPrice + variation
     minVariationPrice =  midPrice - variation
 
-    console.log( `stock current price is : ${stock.Current_Price}
-    maximum variation price is ${maxVariationPrice}
-    Minimum variation price is ${minVariationPrice}
-    stock Lowest cutOFF is : ${stock.Lowest_Cut_Off}
-    stock highest Cutoff is ${stock.Highest_Cut_Off}`);
+    // console.log( `stock current price is : ${stock.Current_Price}
+    // maximum variation price is ${maxVariationPrice}
+    // Minimum variation price is ${minVariationPrice}
+    // stock Lowest cutOFF is : ${stock.Lowest_Cut_Off}
+    // stock highest Cutoff is ${stock.Highest_Cut_Off}`);
     if ( Number(stock.Current_Price) <= Number(maxVariationPrice) && Number(stock.Current_Price)>=Number(minVariationPrice)){
         columnColor = "wheat"
         console.log("Its Normal thing");
@@ -93,5 +164,6 @@ function checkStockZone( stock){
     return columnColor
 
 }
+
 
 generateTable()
