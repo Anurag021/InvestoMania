@@ -1,9 +1,9 @@
 //Working-- next activity
 //1.Add Live Stock updater from  5Paisa API.
-//3. Work on delete item Part--> (pending Work)
 
 //completed Tasks
 //2. Add window to add more stocks into website.
+//3. Delete Functionality Done
 
 
 const tableHeading = ["s.no","Company_Name","Category","Avg. Price",
@@ -27,7 +27,7 @@ S_no: "1", Company_Name: "DEEPAKNITRATE", Category : "Chemical" , Average_Price:
  Current_Price:"4",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"},
  {S_no: "9",Company_Name: "Test4", Category : "IT Services", Average_Price:"10",
  Current_Price:"15",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"},
- {S_no: "8",Company_Name: "Test3", Category : "IT Services", Average_Price:"10",
+ {S_no: "10",Company_Name: "Test3", Category : "IT Services", Average_Price:"10",
  Current_Price:"10",Lowest_Cut_Off:"5", Highest_Cut_Off:"20"}
 ] 
 
@@ -47,9 +47,9 @@ var addvalidatioText = document.querySelector(".addvalidatioText")
 var deleteSNo = document.querySelector("#deleteSNo")
 var deleteName = document.querySelector("#deleteName")
 var deleteBtn = document.querySelector(".deleteBtn")
+var deleteInformation = document.querySelector(".deleteInformation")
 
 addMoreBtn.addEventListener("click",AddMore)
-console.log(deleteBtn);
 deleteBtn.addEventListener("click",DeleteStock)
 
 //For Adding More Items into the list
@@ -64,7 +64,7 @@ function AddMore(){
                 Average_Price:avgPrice.value, Current_Price:currentPrice.value,
                 Lowest_Cut_Off:lowestCutOffPrice.value, Highest_Cut_Off:maximumCutOffPrice.value}
             )
-                console.log(sNo.value);    
+            console.log(sNo.value);    
             table.innerHTML = ""
             generateTable()  
             addvalidatioText.innerText = "Details Added Successfully"
@@ -73,23 +73,28 @@ function AddMore(){
         else{
             console.log("Added Else Block");
             addvalidatioText.innerText = "Invalid Details"
-
         }
-
-    
 }
 
 //Delete Stock from the List based on the Input values
 function DeleteStock(){
-    console.log("Delete Button Clicked");
-    Stocks.forEach((st)=>{
-        // if (st.S_no == deleteSNo) {
-            
-        // }
-        Stocks.po
-    })
-}
 
+    console.log("Delete Button Clicked");
+    if(deleteSNo.value!="" || deleteName.value!="" ){
+        for (var i =0 ; i<= Stocks.length-1; i++){
+            if(Stocks[i].S_no == deleteSNo.value || Stocks[i].Company_Name == deleteName.value){
+                console.log ("Deleted Stock")
+                var Spliced = Stocks.splice(i,1)
+                console.log(Spliced);
+                table.innerHTML = ""
+                generateTable()  
+                addvalidatioText.innerText = "Details Deleted Successfully"
+                deleteInformation.innerHTML = ""
+            }} }
+    else {
+        console.log("else loop executed");
+        deleteInformation.innerHTML = "<p style=color:red > Inalid Inputs</p>"
+    }}
 
 //Generating Table Heading Dynamically
 function GenerateTableHeading(){
