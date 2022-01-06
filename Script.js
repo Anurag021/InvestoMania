@@ -1,5 +1,9 @@
 //Working-- next activity
-//1.Add Live Stock updater from  5Paisa API.
+//implementing Async call to live price updater is still pending
+//line 125 fetching current value using fetch function
+//line 157 applying asynchronous function on this part
+//line 153 to comment and Line 154 to uncomment
+//uncomment line 20-27 of HTML
 
 //completed Tasks
 //2. Add window to add more stocks into website.
@@ -49,8 +53,12 @@ var deleteName = document.querySelector("#deleteName")
 var deleteBtn = document.querySelector(".deleteBtn")
 var deleteInformation = document.querySelector(".deleteInformation")
 
+var inputStockName = document.querySelector("#inputStockName")
+var btnStock = document.querySelector(".btnStock")
+//calling Eventlistners
 addMoreBtn.addEventListener("click",AddMore)
 deleteBtn.addEventListener("click",DeleteStock)
+btnStock.addEventListener("click",fetchStockData)
 
 //For Adding More Items into the list
 function AddMore(){
@@ -109,23 +117,65 @@ function GenerateTableHeading(){
 
 //Generating Table Dynamically from Array values
 function generateTable(){
-GenerateTableHeading()
-Stocks.forEach((st)=>{
-    const tr = document.createElement("tr")
+    GenerateTableHeading()
+    // let stockSymbol = inputStockName.value
+    Stocks.forEach((st)=>{
+        const tr = document.createElement("tr")
+        var stockValue = 0;
+         
+        for (const key in st) {
+            const td = document.createElement("td")
 
-    for (const key in st) {
-        const td = document.createElement("td")
-        td.appendChild(document.createTextNode(st[key]))
-        tr.appendChild(td)
+            //for getting value from fetch Api key
+            // if(key === "Company_Name"){
+            //     console.log("Company Name Trigger");
+            //     var stockValue = fetchStockData(st[key])
+            // }
+            // if(key === "Current_Price"){
+            //     st[key] = stockValue
+            // }
+            
+            td.appendChild(document.createTextNode(st[key]))
+            tr.appendChild(td)
+            }
+    
+        var colorCode = checkStockZone(st)
+        tr.style.backgroundColor = colorCode;
+    
+        table.appendChild(tr)
+        console.log("------------------------------------------");
+    
+    })}
+
+//Fetching Stock market data using AlphaVantage API
+    function fetchStockData(stockName){
+        console.log("Fetch Stock Data function triggered");
+        const Api_Key = "HGJWFG4N8AQ66ICD";     
+        if(inputStockName.value !=""){
+            let stockSymbol = inputStockName.value
+            // let stockSymbol = stockName ; 
+            let Api_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}.BSE&outputsize=compact&apikey=${Api_Key}`
+            
+                fetch(Api_Call).   
+            then((response)=>{
+                return response.json();
+            }).then((data)=>{
+                // console.log(data);
+                for(var key in data['Time Series (Daily)']){
+                    var stockPrice = data['Time Series (Daily)'][key]['1. open']
+                    console.log(stockPrice)
+                    break;
+                }
+            })
+            
         }
+        else{
+            console.log("Invalid Name");
+            stockPrice = 0
+        }
+    return stockPrice   
+    }
 
-    var colorCode = checkStockZone(st)
-    tr.style.backgroundColor = colorCode;
-
-    table.appendChild(tr)
-    console.log("------------------------------------------");
-
-})}
 
 // change color of the row based on stocks Value
 function checkStockZone( stock){
@@ -169,6 +219,5 @@ function checkStockZone( stock){
     return columnColor
 
 }
-
 
 generateTable()
