@@ -3,11 +3,11 @@
 //line 125 fetching current value using fetch function
 //line 157 applying asynchronous function on this part
 //line 153 to comment and Line 154 to uncomment
-//uncomment line 20-27 of HTML
 
 //completed Tasks
-//2. Add window to add more stocks into website.
-//3. Delete Functionality Done
+//1. Add window to add more stocks into website.
+//2. Delete Functionality Done
+//3. used alphavantage api to fetch live stock prices
 
 
 const tableHeading = ["s.no","Company_Name","Category","Avg. Price",
@@ -120,31 +120,32 @@ function generateTable(){
     GenerateTableHeading()
     // let stockSymbol = inputStockName.value
     Stocks.forEach((st)=>{
-        const tr = document.createElement("tr")
-        var stockValue = 0;
-         
-        for (const key in st) {
-            const td = document.createElement("td")
-
-            //for getting value from fetch Api key
-            // if(key === "Company_Name"){
-            //     console.log("Company Name Trigger");
-            //     var stockValue = fetchStockData(st[key])
-            // }
-            // if(key === "Current_Price"){
-            //     st[key] = stockValue
-            // }
             
-            td.appendChild(document.createTextNode(st[key]))
-            tr.appendChild(td)
-            }
+        const tr = document.createElement("tr")
+        var stockValue = 1;  
+            for (const key in st) {
+                const td = document.createElement("td")
     
+                //for getting value from fetch Api key
+                // if(key === "Company_Name"){
+                //       console.log("Company Name Trigger");
+                //       var stockValue = fetchStockData(st[key])
+                   
+                // }
+                // if(key === "Current_Price"){
+                //     st[key] = stockValue
+                // }
+                
+                td.appendChild(document.createTextNode(st[key]))
+                tr.appendChild(td)
+                }
+        
         var colorCode = checkStockZone(st)
         tr.style.backgroundColor = colorCode;
     
         table.appendChild(tr)
         console.log("------------------------------------------");
-    
+
     })}
 
 //Fetching Stock market data using AlphaVantage API
